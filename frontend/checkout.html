@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | BiteDash Food Ordering System</title>
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container navbar">
+      <a href="/index.html" class="logo">
+        <i class="fas fa-fire"></i> Bite<span>Dash</span>
+      </a>
+      <nav>
+        <ul id="nav-links-container" class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn">
+          <i class="fas fa-moon"></i>
+        </button>
+        <!-- Cart Button -->
+        <button class="cart-nav-btn" onclick="window.location.href='/cart.html'">
+          <i class="fas fa-shopping-basket"></i>
+          <span id="cart-badge-nav" class="cart-badge" style="display: none;">0</span>
+        </button>
+        <!-- User/Auth Actions -->
+        <div id="nav-auth-actions" style="display: flex; gap: 10px;">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Content -->
+  <main class="checkout-wrapper">
+    <div class="container animate-fade-in">
+      <h2 style="font-size: 2.2rem; margin-bottom: 30px;"><i class="fas fa-truck"></i> Delivery Checkout</h2>
+      
+      <div class="cart-layout">
+        <!-- Left Column: Delivery Form -->
+        <div class="glass-card" style="padding: 30px;">
+          <h3 style="font-size: 1.3rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Delivery Address</h3>
+          
+          <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+            <div class="form-group">
+              <label for="delivery-address">Street Address / House Number</label>
+              <textarea id="delivery-address" class="form-input" rows="4" required placeholder="e.g. Flat 405, Block A, Sunrise Apartments, Outer Ring Road"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="delivery-landmark">Landmark (Optional)</label>
+              <input type="text" id="delivery-landmark" class="form-input" placeholder="e.g. Near HDFC Bank ATM">
+            </div>
+
+            <div class="form-group">
+              <label>Payment Method</label>
+              <div style="display: flex; gap: 15px; margin-top: 8px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer;">
+                  <input type="radio" name="payment-method" value="COD" checked> Cash on Delivery (COD)
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary hover-scale" style="width: 100%; margin-top: 25px;">
+              <i class="fas fa-check-circle"></i> Place Order
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Column: Order summary overview -->
+        <div id="checkout-summary-card">
+          <!-- Injected via cart.js -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="/index.html" class="logo" style="margin-bottom: 20px;">
+          <i class="fas fa-fire"></i> Bite<span>Dash</span>
+        </a>
+        <p>Making delicious food accessible from premium kitchens directly to your doorstep. Satisfy your cravings today.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Browse Menu</a></li>
+          <li><a href="/cart.html">View Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Pune, India</p>
+        <p><i class="fas fa-envelope"></i> support@bitedash.com</p>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <p>Monday - Sunday</p>
+        <p><strong>10:00 AM - 11:00 PM</strong></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 BiteDash Food Ordering System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Auth Modal Overlay -->
+  <div id="auth-modal-overlay" class="modal-overlay">
+    <div class="modal-content modal-content-animate">
+      <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+      <h2 id="auth-modal-title" style="margin-bottom: 20px; font-family: var(--font-heading);">Login</h2>
+      <div id="auth-form-container">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/app.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Security Check: If not logged in, redirect
+      const token = localStorage.getItem('token');
+      if (!token) {
+        showToast('Please login to view checkout', 'danger');
+        window.location.href = '/index.html?modal=login';
+        return;
+      }
+      renderCheckoutPage();
+    });
+  </script>
+</body>
+</html>

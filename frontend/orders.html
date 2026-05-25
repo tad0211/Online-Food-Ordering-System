@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Orders | BiteDash Food Ordering System</title>
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container navbar">
+      <a href="/index.html" class="logo">
+        <i class="fas fa-fire"></i> Bite<span>Dash</span>
+      </a>
+      <nav>
+        <ul id="nav-links-container" class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn">
+          <i class="fas fa-moon"></i>
+        </button>
+        <!-- Cart Button -->
+        <button class="cart-nav-btn" onclick="window.location.href='/cart.html'">
+          <i class="fas fa-shopping-basket"></i>
+          <span id="cart-badge-nav" class="cart-badge" style="display: none;">0</span>
+        </button>
+        <!-- User/Auth Actions -->
+        <div id="nav-auth-actions" style="display: flex; gap: 10px;">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Orders Content -->
+  <main class="orders-wrapper">
+    <div class="container">
+      
+      <!-- Section 1: Detailed Order Tracking (hidden by default) -->
+      <div id="tracking-section" style="display: none;" class="animate-fade-in">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+          <a href="/orders.html" class="btn btn-secondary btn-sm" style="border-radius: 8px;"><i class="fas fa-arrow-left"></i> Back to History</a>
+          <h2 style="font-size: 2.2rem; margin: 0;">Track Order <span id="tracking-order-id" style="color: var(--accent);">#ORD-</span></h2>
+        </div>
+
+        <div class="cart-layout">
+          <!-- Left Col: Tracking Stepper and Info -->
+          <div class="glass-card" style="padding: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-secondary);">Current Status</span>
+                <div id="tracking-status-badge" class="order-status-badge status-placed" style="margin-left: 10px;">Placed</div>
+              </div>
+              <div style="text-align: right;">
+                <span style="font-size: 0.85rem; color: var(--text-secondary);">Placed On</span>
+                <div id="tracking-order-date" style="font-weight: 500;">-</div>
+              </div>
+            </div>
+
+            <!-- Stepper Steps -->
+            <div class="tracking-stepper">
+              <div id="tracking-progress" class="tracking-progress-bar" style="width: 0%;"></div>
+              
+              <div class="step-item" id="step-placed">
+                <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                <div class="step-label">Placed</div>
+              </div>
+              
+              <div class="step-item" id="step-preparing">
+                <div class="step-icon"><i class="fas fa-fire-burner"></i></div>
+                <div class="step-label">Preparing</div>
+              </div>
+              
+              <div class="step-item" id="step-delivery">
+                <div class="step-icon"><i class="fas fa-motorcycle"></i></div>
+                <div class="step-label">Out for Delivery</div>
+              </div>
+              
+              <div class="step-item" id="step-delivered">
+                <div class="step-icon"><i class="fas fa-house-chimney-user"></i></div>
+                <div class="step-label">Delivered</div>
+              </div>
+            </div>
+            
+            <div id="cancelled-message-card" class="glass-card" style="display: none; background-color: rgba(231, 29, 54, 0.05); border-color: var(--danger); padding: 15px 20px; color: var(--danger); font-weight: 500; text-align: center; margin-bottom: 25px;">
+              <i class="fas fa-times-circle"></i> This order has been cancelled. Please contact support.
+            </div>
+
+            <div style="margin-top: 30px;">
+              <h4 style="margin-bottom: 10px;">Delivery Address</h4>
+              <p id="tracking-address" style="color: var(--text-secondary); line-height: 1.4;">-</p>
+            </div>
+          </div>
+
+          <!-- Right Col: Order Receipt Summary -->
+          <div class="glass-card" style="padding: 25px; height: fit-content;">
+            <h3 class="summary-title" style="font-size: 1.2rem;">Order Summary</h3>
+            <div id="tracking-items-list" style="margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+              <!-- Items loaded dynamically -->
+            </div>
+            <div class="summary-row total" style="margin: 0; padding: 0; border: none; font-size: 1.15rem;">
+              <span>Total Paid</span>
+              <span id="tracking-total-amount" style="color: var(--accent);">₹0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Order History List -->
+      <div id="history-section" class="animate-fade-in">
+        <h2 style="font-size: 2.2rem; margin-bottom: 30px;"><i class="fas fa-history"></i> Your Order History</h2>
+        
+        <div id="orders-history-list" class="orders-list">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="/index.html" class="logo" style="margin-bottom: 20px;">
+          <i class="fas fa-fire"></i> Bite<span>Dash</span>
+        </a>
+        <p>Making delicious food accessible from premium kitchens directly to your doorstep. Satisfy your cravings today.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Browse Menu</a></li>
+          <li><a href="/cart.html">View Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Pune, India</p>
+        <p><i class="fas fa-envelope"></i> support@bitedash.com</p>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <p>Monday - Sunday</p>
+        <p><strong>10:00 AM - 11:00 PM</strong></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 BiteDash Food Ordering System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Auth Modal Overlay -->
+  <div id="auth-modal-overlay" class="modal-overlay">
+    <div class="modal-content modal-content-animate">
+      <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+      <h2 id="auth-modal-title" style="margin-bottom: 20px; font-family: var(--font-heading);">Login</h2>
+      <div id="auth-form-container">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/app.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+
+  <!-- Page Logic Script -->
+  <script>
+    let pollInterval = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        showToast('Please login to view your orders', 'danger');
+        window.location.href = '/index.html?modal=login';
+        return;
+      }
+
+      // Check URL parameters for single order tracking
+      const orderId = getUrlParam('id');
+      if (orderId) {
+        document.getElementById('tracking-section').style.display = 'block';
+        document.getElementById('history-section').style.display = 'none';
+        
+        await fetchOrderDetails(orderId, token);
+        // Start polling for real-time status updates every 10 seconds
+        pollInterval = setInterval(() => {
+          fetchOrderDetails(orderId, token, false);
+        }, 10000);
+      } else {
+        document.getElementById('tracking-section').style.display = 'none';
+        document.getElementById('history-section').style.display = 'block';
+        
+        await fetchOrderHistory(token);
+      }
+    });
+
+    // Clear interval when navigating away
+    window.addEventListener('beforeunload', () => {
+      if (pollInterval) clearInterval(pollInterval);
+    });
+
+    // Fetch Order History for User
+    async function fetchOrderHistory(token) {
+      const container = document.getElementById('orders-history-list');
+      if (!container) return;
+
+      container.innerHTML = '<div style="text-align: center; padding: 40px;"><i class="fas fa-spinner fa-spin"></i> Loading order history...</div>';
+
+      try {
+        const res = await fetch(`${API_BASE}/orders/my`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          if (data.orders.length === 0) {
+            container.innerHTML = `
+              <div class="glass-card" style="text-align: center; padding: 50px 20px;">
+                <i class="fas fa-receipt" style="font-size: 3.5rem; color: var(--border-color); margin-bottom: 20px;"></i>
+                <h3>No Orders Yet</h3>
+                <p style="color: var(--text-secondary); margin: 10px 0 25px;">You haven't ordered any food yet. Check out our menu!</p>
+                <a href="/menu.html" class="btn btn-primary"><i class="fas fa-utensils"></i> Browse Food Menu</a>
+              </div>
+            `;
+            return;
+          }
+
+          let historyHTML = '';
+          data.orders.forEach(order => {
+            const dateFormatted = new Date(order.created_at).toLocaleString();
+            let statusClass = 'status-placed';
+            if (order.status === 'Preparing') statusClass = 'status-preparing';
+            if (order.status === 'Out for Delivery') statusClass = 'status-out-for-delivery';
+            if (order.status === 'Delivered') statusClass = 'status-delivered';
+            if (order.status === 'Cancelled') statusClass = 'status-cancelled';
+
+            historyHTML += `
+              <div class="glass-card order-history-card hover-lift animate-fade-in">
+                <div class="order-info">
+                  <h3>Order #ORD-${order.id}</h3>
+                  <div class="order-date">${dateFormatted}</div>
+                  <div>
+                    <span class="order-status-badge ${statusClass}">${order.status}</span>
+                    <span style="margin-left: 15px; color: var(--text-secondary); font-size: 0.9rem;">
+                      <i class="fas fa-bag-shopping"></i> ${order.item_count} ${order.item_count === 1 ? 'item' : 'items'}
+                    </span>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                  <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent);">${formatCurrency(order.total_amount)}</div>
+                  <a href="/orders.html?id=${order.id}" class="btn btn-secondary btn-sm" style="border-radius: 8px;">
+                    Track Order <i class="fas fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
+                  </a>
+                </div>
+              </div>
+            `;
+          });
+
+          container.innerHTML = historyHTML;
+        } else {
+          container.innerHTML = `<div style="text-align: center; color: var(--danger); padding: 40px;">${data.message || 'Error loading order history'}</div>`;
+        }
+      } catch (error) {
+        console.error('Error fetching order history:', error);
+        container.innerHTML = '<div style="text-align: center; color: var(--danger); padding: 40px;">Server connection failed.</div>';
+      }
+    }
+
+    // Fetch and Track Single Order Details
+    async function fetchOrderDetails(orderId, token, showSpinner = true) {
+      const itemsContainer = document.getElementById('tracking-items-list');
+      if (showSpinner && itemsContainer) {
+        itemsContainer.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/orders/${orderId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          const order = data.order;
+
+          // Update header details
+          document.getElementById('tracking-order-id').textContent = `#ORD-${order.id}`;
+          document.getElementById('tracking-order-date').textContent = new Date(order.created_at).toLocaleString();
+          document.getElementById('tracking-address').textContent = order.delivery_address;
+          document.getElementById('tracking-total-amount').textContent = formatCurrency(order.total_amount);
+
+          // Update Badge
+          const badge = document.getElementById('tracking-status-badge');
+          badge.textContent = order.status;
+          badge.className = 'order-status-badge'; // reset
+          let statusClass = 'status-placed';
+          if (order.status === 'Preparing') statusClass = 'status-preparing';
+          if (order.status === 'Out for Delivery') statusClass = 'status-out-for-delivery';
+          if (order.status === 'Delivered') statusClass = 'status-delivered';
+          if (order.status === 'Cancelled') statusClass = 'status-cancelled';
+          badge.classList.add(statusClass);
+
+          // Update Stepper
+          updateStepper(order.status);
+
+          // Render Receipt Items
+          if (itemsContainer) {
+            let itemsHTML = '';
+            order.items.forEach(i => {
+              itemsHTML += `
+                <div style="display: flex; justify-content: space-between; font-size: 0.95rem; margin-bottom: 10px;">
+                  <span><strong>${i.food_name}</strong> (x${i.quantity})</span>
+                  <span>${formatCurrency(i.price * i.quantity)}</span>
+                </div>
+              `;
+            });
+            itemsContainer.innerHTML = itemsHTML;
+          }
+        } else {
+          showToast(data.message || 'Error tracking order', 'danger');
+          if (pollInterval) clearInterval(pollInterval);
+        }
+      } catch (error) {
+        console.error('Error fetching order tracking details:', error);
+      }
+    }
+
+    // Update Step Active Classes
+    function updateStepper(status) {
+      const steps = ['placed', 'preparing', 'delivery', 'delivered'];
+      const cancelledCard = document.getElementById('cancelled-message-card');
+      const stepperContainer = document.querySelector('.tracking-stepper');
+
+      if (status === 'Cancelled') {
+        if (cancelledCard) cancelledCard.style.display = 'block';
+        if (stepperContainer) stepperContainer.style.opacity = '0.4';
+        return;
+      } else {
+        if (cancelledCard) cancelledCard.style.display = 'none';
+        if (stepperContainer) stepperContainer.style.opacity = '1';
+      }
+
+      let activeStepIndex = 0;
+      if (status === 'Placed') activeStepIndex = 0;
+      if (status === 'Preparing') activeStepIndex = 1;
+      if (status === 'Out for Delivery') activeStepIndex = 2;
+      if (status === 'Delivered') activeStepIndex = 3;
+
+      // Update progress bar width
+      const progressWidths = [0, 33, 66, 100];
+      const progressBar = document.getElementById('tracking-progress');
+      if (progressBar) {
+        if (window.innerWidth <= 768) {
+          // In mobile layout, height is scaled
+          progressBar.style.width = '4px';
+          progressBar.style.height = `${progressWidths[activeStepIndex]}%`;
+        } else {
+          progressBar.style.height = '4px';
+          progressBar.style.width = `${progressWidths[activeStepIndex]}%`;
+        }
+      }
+
+      // Toggle completed and active states
+      steps.forEach((stepName, index) => {
+        const stepEl = document.getElementById(`step-${stepName}`);
+        if (!stepEl) return;
+
+        stepEl.classList.remove('active', 'completed');
+
+        if (index === activeStepIndex) {
+          stepEl.classList.add('active');
+        } else if (index < activeStepIndex) {
+          stepEl.classList.add('completed');
+        }
+      });
+    }
+
+    // Re-verify on resize for stepper layout line matching
+    window.addEventListener('resize', () => {
+      const orderId = getUrlParam('id');
+      const statusText = document.getElementById('tracking-status-badge').textContent;
+      if (orderId && statusText) {
+        updateStepper(statusText);
+      }
+    });
+  </script>
+</body>
+</html>

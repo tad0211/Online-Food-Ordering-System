@@ -1,0 +1,187 @@
+/* Responsive Media Queries */
+
+/* Tablet and Smaller Screen Adjustments */
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    padding: 60px 0;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-content p {
+    margin: 0 auto 30px;
+  }
+
+  .hero-search {
+    margin: 0 auto;
+  }
+
+  .hero-image img {
+    max-width: 400px;
+  }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .admin-row {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* Mobile Screen Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    padding: 15px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .nav-links {
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 0;
+  }
+
+  .admin-menu {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 5px 15px;
+  }
+
+  .admin-menu li a {
+    padding: 10px 15px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .admin-menu li a:hover,
+  .admin-menu li a.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent);
+  }
+
+  .admin-main {
+    padding: 20px;
+  }
+
+  .admin-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-search-wrapper {
+    max-width: 100%;
+  }
+
+  .order-history-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .tracking-stepper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-left: 20px;
+  }
+
+  .tracking-stepper::before {
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 4px;
+    height: 100%;
+    background-color: var(--border-color);
+  }
+
+  .tracking-progress-bar {
+    top: 0;
+    left: 20px;
+    width: 4px;
+    transition: height 0.5s ease;
+  }
+
+  .step-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+  }
+
+  .step-label {
+    margin-top: 0;
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .cart-item img {
+    width: 100%;
+    height: 150px;
+  }
+
+  .qty-control {
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+}

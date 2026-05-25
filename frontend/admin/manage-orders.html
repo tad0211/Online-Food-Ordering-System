@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Orders | BiteDash Control Panel</title>
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Admin Header Navbar -->
+  <header>
+    <div class="container navbar">
+      <a href="/index.html" class="logo">
+        <i class="fas fa-fire"></i> Bite<span>Dash</span> <small style="font-size: 0.9rem; background-color: var(--accent-light); padding: 2px 8px; border-radius: 4px; font-family: var(--font-body); font-weight: 600;">ADMIN</small>
+      </a>
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn">
+          <i class="fas fa-moon"></i>
+        </button>
+        <!-- User/Auth Actions -->
+        <div id="nav-auth-actions" style="display: flex; gap: 10px;">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Layout Wrapper -->
+  <div class="container admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <ul class="admin-menu">
+        <li><a href="/admin/dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="/admin/manage-menu.html"><i class="fas fa-burger"></i> Manage Menu</a></li>
+        <li><a href="/admin/manage-orders.html" class="active"><i class="fas fa-truck-ramp-box"></i> Manage Orders</a></li>
+        <li style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+          <a href="/menu.html" style="color: var(--accent);"><i class="fas fa-utensils"></i> Dine View</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <h2 style="font-size: 2rem;">Manage Customer Orders</h2>
+      </div>
+
+      <!-- Filters & Search -->
+      <div class="admin-filters">
+        <div class="admin-search-wrapper">
+          <i class="fas fa-search" style="color: var(--text-secondary);"></i>
+          <input type="text" id="order-search" oninput="filterOrdersTable()" placeholder="Search Order ID, user, or address...">
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">
+          <i class="fas fa-arrows-spin"></i> Table updates dynamically.
+        </div>
+      </div>
+
+      <!-- Orders Data Table -->
+      <section class="glass-card" style="padding: 30px;">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 100px;">Order ID</th>
+                <th>Customer</th>
+                <th>Order Details / Delivery Address</th>
+                <th>Total Paid</th>
+                <th>Placed Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table-body">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/app.js"></script>
+  <script src="/js/admin.js"></script>
+
+  <!-- Client-side filtering script -->
+  <script>
+    function filterOrdersTable() {
+      const query = document.getElementById('order-search').value.toLowerCase();
+      const rows = document.querySelectorAll('#admin-orders-table-body tr');
+
+      rows.forEach(row => {
+        // If loading row, skip
+        if (row.cells.length === 1) return;
+
+        const orderId = row.cells[0].textContent.toLowerCase();
+        const customer = row.cells[1].textContent.toLowerCase();
+        const details = row.cells[2].textContent.toLowerCase();
+
+        if (orderId.includes(query) || customer.includes(query) || details.includes(query)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

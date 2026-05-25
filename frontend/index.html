@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteDash | Premium Online Food Ordering System</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Order fresh, delicious, and premium food online from BiteDash. Fast delivery, glassmorphism design, and 5% GST real-time tracking.">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container navbar">
+      <a href="/index.html" class="logo">
+        <i class="fas fa-fire"></i> Bite<span>Dash</span>
+      </a>
+      <nav>
+        <ul id="nav-links-container" class="nav-links">
+          <li><a href="/index.html" class="active">Home</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Light/Dark Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <!-- Cart Button -->
+        <button class="cart-nav-btn" onclick="window.location.href='/cart.html'" title="View Cart">
+          <i class="fas fa-shopping-basket"></i>
+          <span id="cart-badge-nav" class="cart-badge" style="display: none;">0</span>
+        </button>
+        <!-- User/Auth Actions -->
+        <div id="nav-auth-actions" style="display: flex; gap: 10px;">
+          <!-- Loaded dynamically via app.js -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="container hero animate-fade-in">
+      <div class="hero-content">
+        <span class="hero-tagline">✨ The Best Food Delivery Service</span>
+        <h1>Delicious Dishes,<br>Delivered <span>Straight To You</span></h1>
+        <p>Browse from our carefully curated list of local delicacies, choose your favorites, and enjoy fast, contact-free doorstep delivery in minutes.</p>
+        
+        <form class="hero-search" onsubmit="event.preventDefault(); window.location.href = `/menu.html?search=${document.getElementById('search-input').value}`">
+          <input type="text" id="search-input" placeholder="Search for Paneer, Biryani, Coffee...">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+        </form>
+      </div>
+      
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80" alt="Delicious Food Feast">
+      </div>
+    </section>
+
+    <!-- Core Features Banner -->
+    <section class="container" style="padding: 60px 0; border-top: 1px solid var(--border-color);">
+      <div class="section-header">
+        <h2>Why Order From Us?</h2>
+        <p>We pride ourselves on offering a top-tier delivery experience from kitchen to table.</p>
+      </div>
+      <div class="testimonials-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); text-align: center;">
+        <div class="glass-card testimonial-card hover-lift animate-fade-in" style="padding: 40px 30px;">
+          <div style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"><i class="fas fa-utensils"></i></div>
+          <h3 style="font-family: var(--font-body); font-weight: 600; margin-bottom: 10px;">Premium Quality</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Fresh ingredients sourced daily, prepared by certified chefs with meticulous hygiene.</p>
+        </div>
+        <div class="glass-card testimonial-card hover-lift animate-fade-in" style="padding: 40px 30px;">
+          <div style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"><i class="fas fa-truck-fast"></i></div>
+          <h3 style="font-family: var(--font-body); font-weight: 600; margin-bottom: 10px;">Lightning Fast</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Smart dispatch systems routing hot food straight to your address under 30 minutes.</p>
+        </div>
+        <div class="glass-card testimonial-card hover-lift animate-fade-in" style="padding: 40px 30px;">
+          <div style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"><i class="fas fa-shield-halved"></i></div>
+          <h3 style="font-family: var(--font-body); font-weight: 600; margin-bottom: 10px;">Secure Checkout</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Fully parameterized queries, encrypted auth tokens, and safe transactions guaranteed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>Loved By Foodies</h2>
+          <p>Read what our regular diners have to say about their meal ordering experiences.</p>
+        </div>
+        
+        <div class="testimonials-grid">
+          <div class="testimonial-card animate-fade-in">
+            <p class="testimonial-text">"The Butter Chicken is out of this world! Creamy, rich, and arrived piping hot. The real-time order tracking stepper was extremely helpful. Will order again!"</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Customer Sarah">
+              <div>
+                <h4>Sarah Jenkins</h4>
+                <span>Premium Member</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card animate-fade-in">
+            <p class="testimonial-text">"I love the dark mode on this app! Super easy to browse at night. Ordering French Fries and a Veg Burger takes less than two minutes. Highly recommended!"</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Customer Rohan">
+              <div>
+                <h4>Rohan Sharma</h4>
+                <span>Local Food Guide</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Cart -->
+  <div id="floating-cart-container" class="floating-cart bounce" style="display: none;">
+    <i class="fas fa-shopping-basket"></i>
+    <span id="cart-badge-float" class="badge">0</span>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="/index.html" class="logo" style="margin-bottom: 20px;">
+          <i class="fas fa-fire"></i> Bite<span>Dash</span>
+        </a>
+        <p>Making delicious food accessible from premium kitchens directly to your doorstep. Satisfy your cravings today.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/menu.html">Browse Menu</a></li>
+          <li><a href="/cart.html">View Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Pune, India</p>
+        <p><i class="fas fa-envelope"></i> support@bitedash.com</p>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <p>Monday - Sunday</p>
+        <p><strong>10:00 AM - 11:00 PM</strong></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 BiteDash Food Ordering System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Auth Modal Overlay -->
+  <div id="auth-modal-overlay" class="modal-overlay">
+    <div class="modal-content modal-content-animate">
+      <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+      <h2 id="auth-modal-title" style="margin-bottom: 20px; font-family: var(--font-heading);">Login</h2>
+      <div id="auth-form-container">
+        <!-- Injected dynamically via auth.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Declarations -->
+  <script src="/js/app.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
