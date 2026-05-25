@@ -1,3 +1,4 @@
+
 # BiteDash | Full-Stack Online Food Ordering System
 
 BiteDash is a professional, fully functional, and modern online food ordering web application built using Node.js, Express, MySQL, and Vanilla Javascript. It features high-quality glassmorphism components, dark and light theme toggles, toast notifications, real-time order tracking status steppers, and a complete administrative control panel with live metric charts.
@@ -160,3 +161,6 @@ The backend exposes the following RESTful endpoints under `/api`:
 - **Cart checkout validation**: Real-time totals and tax calculations.
 - **Order Tracking Stepper**: Progress bar illustrating Placed → Delivered.
 - **Admin Dashboard Charts**: Canvas graphs displaying daily revenues.
+=======
+# Online-Food-Ordering-System
+>>>>>>> 3eb1837d6a83c200813b62779ac3d6fde8e79746
